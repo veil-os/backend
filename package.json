@@ -30,8 +30,10 @@
     "http-errors": "^1.7.3",
     "middy": "^0.24.0",
     "middy-middleware-json-error-handler": "^1.0.0",
+    "runtypes": "^5.0.1",
     "serverless": "^1.62.0",
-    "serverless-dotenv-plugin": "^1.2.0"
+    "serverless-dotenv-plugin": "^1.2.0",
+    "serverless-dynamodb-local": "^0.2.39"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.9.5",

@@ -1,5 +1,4 @@
 service: shrouded
-
 provider:
   name: aws
   runtime: nodejs12.x
@@ -7,9 +6,10 @@ provider:
   timeout: 30 # optional, in seconds, default is 6
   stage: ${opt:stage, "dev"}
   region: ${opt:region, "ap-southeast-1"}
+  environment:
+    TABLE_NAME: shrouded
   tracing:
     lambda: true
-
 functions:
   handleHelloWorld:
     handler: src/functionHandlers/helloWorld/index.handler
@@ -18,12 +18,51 @@ functions:
           path: /hello
           method: get
           cors: true
-
+resources:
+  Resources:
+    ShroudedTable:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: PK
+            AttributeType: S
+          - AttributeName: SK
+            AttributeType: S
+        KeySchema:
+          - AttributeName: PK
+            KeyType: HASH
+          - AttributeName: SK
+            KeyType: RANGE
+        GlobalSecondaryIndexes:
+          - IndexName: inverted
+            KeySchema:
+              - AttributeName: SK
+                KeyType: HASH
+              - AttributeName: PK
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.TABLE_NAME}
 custom:
   webpack:
     includeModules: true
+  # Enable auto migration in local dynamodb on start
+  dynamodb:
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+    stages:
+      - dev
 
 plugins:
   - serverless-webpack
   - serverless-dotenv-plugin
   - serverless-offline
+  - serverless-dynamodb-local

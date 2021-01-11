@@ -19,3 +19,8 @@ npm run dev
 1. (Offline) Beneficiary generates claim proof
 1. Beneficiary submits claim proof
 1. Anyone to read the claim ledger
+
+### TODO
+
+- Create claim endpoint
+- List & filter claim endpoint

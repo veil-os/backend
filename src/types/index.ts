@@ -1,4 +1,5 @@
 import { SnarkProof } from "libsemaphore";
+
 export interface IdentityGroup {
   identityGroup: string;
   name: string;

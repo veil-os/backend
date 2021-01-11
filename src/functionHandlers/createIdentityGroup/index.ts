@@ -1,8 +1,8 @@
 import { APIGatewayEvent } from "aws-lambda";
-import { publicRequestHandler } from "../../middlewares/handlers";
-import { getLogger } from "../../common/logger";
 import { Record, String } from "runtypes";
 import { v4 as uuid } from "uuid";
+import { publicRequestHandler } from "../../middlewares/handlers";
+import { getLogger } from "../../common/logger";
 import { insertIdentityGroupEntry } from "../../models/identityGroup";
 
 const { info } = getLogger("createIdentityGroup");

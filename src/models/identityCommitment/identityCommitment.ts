@@ -32,7 +32,7 @@ export const insertIdentityCommitmentEntry = async (idc: IdentityCommitment) => 
     Item: transformIdentityCommitmentToEntry(idc)
   };
   await put(param);
-  return param.Item;
+  return transformEntryToIdentityCommitment(param.Item);
 };
 
 export const listIdentityCommitmentEntries = async ({ identityGroup }: Pick<IdentityCommitment, "identityGroup">) => {

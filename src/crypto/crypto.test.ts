@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { verifyClaimSignals } from "./crypto";
 
 it("should verify valid claim", async () => {

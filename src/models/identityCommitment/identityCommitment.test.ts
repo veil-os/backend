@@ -1,19 +1,4 @@
-import {
-  // insertIdentityCommitmentEntry,
-  // listIdentityCommitmentEntries,
-  // deleteIdentityCommitmentEntry,
-  transformEntryToIdentityCommitment,
-  transformIdentityCommitmentToEntry
-} from "./identityCommitment";
-
-// it("works", async () => {
-//   await insertIdentityCommitmentEntry({ identityCommitment: "testIdc2", identityGroup: "testIdg" });
-//   const commitments = await listIdentityCommitmentEntries({ identityGroup: "testIdg" });
-//   console.log(commitments);
-//   await deleteIdentityCommitmentEntry({ identityCommitment: "testIdc2", identityGroup: "testIdg" });
-//   const commitments2 = await listIdentityCommitmentEntries({ identityGroup: "testIdg" });
-//   console.log(commitments2);
-// });
+import { transformEntryToIdentityCommitment, transformIdentityCommitmentToEntry } from "./identityCommitment";
 
 describe("transformIdentityCommitmentToEntry", () => {
   it("should transform correctly", () => {

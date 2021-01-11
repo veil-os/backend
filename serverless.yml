@@ -11,13 +11,6 @@ provider:
   tracing:
     lambda: true
 functions:
-  handleHelloWorld:
-    handler: src/functionHandlers/helloWorld/index.handler
-    events:
-      - http:
-          path: /hello
-          method: get
-          cors: true
   createIdentityGroup:
     handler: src/functionHandlers/createIdentityGroup/index.handler
     events:
@@ -30,6 +23,20 @@ functions:
     events:
       - http:
           path: /identityGroup
+          method: get
+          cors: true
+  createIdentityCommitment:
+    handler: src/functionHandlers/createIdentityCommitment/index.handler
+    events:
+      - http:
+          path: /identityCommitment
+          method: post
+          cors: true
+  listIdentityCommitmentsByIdentityGroup:
+    handler: src/functionHandlers/listIdentityCommitmentsByIdentityGroup/index.handler
+    events:
+      - http:
+          path: /identityCommitment/{identityGroup}
           method: get
           cors: true
 resources:

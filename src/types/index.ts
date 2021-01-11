@@ -1,3 +1,4 @@
+import { SnarkProof } from "libsemaphore";
 export interface IdentityGroup {
   identityGroup: string;
   name: string;
@@ -8,7 +9,10 @@ export interface IdentityCommitment {
   identityCommitment: string;
 }
 
-export type Proof = any;
+export interface Proof {
+  merkleRoot: string;
+  snarkProof: SnarkProof;
+}
 
 export interface Claim {
   identityGroup: string;

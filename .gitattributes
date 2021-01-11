@@ -1,0 +1,2 @@
+src/crypto/circuit/circuit.json filter=lfs diff=lfs merge=lfs -text
+src/crypto/circuit/proving_key.bin filter=lfs diff=lfs merge=lfs -text

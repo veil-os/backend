@@ -23,7 +23,7 @@ export const transformEntryToClaim = (raw: DbEntry): Claim => {
     externalNullifier,
     nullifier,
     message: entry.data.message,
-    proof: entry.data.proof
+    proof: entry.data.proof as any
   };
 };
 

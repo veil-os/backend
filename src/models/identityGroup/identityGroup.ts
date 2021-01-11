@@ -36,7 +36,7 @@ export const insertIdentityGroupEntry = async (idg: IdentityGroup) => {
     Item: transformIdentityGroupToEntry(idg)
   };
   await put(param);
-  return param.Item;
+  return transformEntryToIdentityGroup(param.Item);
 };
 
 export const getIdentityGroupEntry = async ({ identityGroup }: Pick<IdentityGroup, "identityGroup">) => {

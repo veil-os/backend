@@ -18,6 +18,20 @@ functions:
           path: /hello
           method: get
           cors: true
+  createIdentityGroup:
+    handler: src/functionHandlers/createIdentityGroup/index.handler
+    events:
+      - http:
+          path: /identityGroup
+          method: post
+          cors: true
+  listIdentityGroups:
+    handler: src/functionHandlers/listIdentityGroups/index.handler
+    events:
+      - http:
+          path: /identityGroup
+          method: get
+          cors: true
 resources:
   Resources:
     ShroudedTable:

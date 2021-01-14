@@ -39,6 +39,13 @@ functions:
           path: /identityCommitment/{identityGroup}
           method: get
           cors: true
+  createClaim:
+    handler: src/functionHandlers/createClaim/index.handler
+    events:
+      - http:
+          path: /claim
+          method: post
+          cors: true
 resources:
   Resources:
     ShroudedTable:

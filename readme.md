@@ -24,3 +24,7 @@ npm run dev
 
 - Create claim endpoint
 - List & filter claim endpoint
+
+### Gotchas
+
+- Retrieval of identity commitments is ordered by sort key instead of time added

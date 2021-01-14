@@ -35,6 +35,9 @@ export const insertIdentityCommitmentEntry = async (idc: IdentityCommitment) => 
   return transformEntryToIdentityCommitment(param.Item);
 };
 
+// TODO add a timestamp to sort the entries by
+// Currently results are sorted by the identity commitment (sort key)
+// To implement sort by timestamp, create a local secondary index
 export const listIdentityCommitmentEntries = async ({ identityGroup }: Pick<IdentityCommitment, "identityGroup">) => {
   const params: AWS.DynamoDB.DocumentClient.QueryInput = {
     TableName: config.dynamodb.table,

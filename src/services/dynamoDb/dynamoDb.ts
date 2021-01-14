@@ -11,3 +11,4 @@ export const get = (params: AWS.DynamoDB.DocumentClient.GetItemInput) => dynamoC
 export const deleteItem = (params: AWS.DynamoDB.DocumentClient.GetItemInput) => dynamoClient.delete(params).promise();
 export const putItems = (a: AWS.DynamoDB.DocumentClient.TransactWriteItemsInput) =>
   dynamoClient.transactWrite(a).promise();
+export const scan = (params: AWS.DynamoDB.DocumentClient.ScanInput) => dynamoClient.scan(params).promise();

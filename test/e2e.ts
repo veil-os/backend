@@ -91,7 +91,8 @@ const runTest = async () => {
   info(claimSubmissionRes.data);
 
   info(`[Program Owner] Checking Claims`);
-  // TBD
+  const claimsRes = await axios.get(`${URL}/claim/${identityGroup}`);
+  info(claimsRes.data);
 };
 
 runTest()

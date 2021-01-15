@@ -12,6 +12,28 @@ const URL = "http://localhost:3000";
 const TEST_ID = uuid();
 const { info, debug } = getLogger(`E2E-TEST`);
 
+/*
+
+Test Scenario
+
+This test simulate a case where there are two beneficiaries (beneficiary 1 & beneficiary 2)
+who are mean tested by a government agency to be in an underprivileged group. The group is
+used by a NGO ran food distribution program. 
+
+The script demonstrate that the identity of the claimant is fully concealed from both the 
+admin from the government who maintains the identity group as well as the program owner who
+runs the food distribution program. Multiple independently ran program can use use a common 
+external nullifier (ie FOOD_DISTRIBUTION-20210115) to prevent double dipping across different
+distribution sites while maintaining full privacy of the individuals. 
+
+The group membership is maintained by the government (admin).
+
+All records on the database are public and can be audited.
+
+Full description of the scenario available at https://geek.sg/blog/decentralized-food-distribution-organisation
+
+*/
+
 const runTest = async () => {
   info("[Setup] Generating circuit");
   const circuitJson = JSON.parse(readFileSync("src/crypto/circuit/circuit.json").toString());

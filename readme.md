@@ -8,6 +8,10 @@ See .example.env for configurable parameters.
 npm run dev
 ```
 
+## Understanding the program
+
+An E2E test has been created at `test/e2e.ts` to facilitate the understanding of how this backend should be used. The scenario is explained in the file comment.
+
 ## Notes
 
 ### Application usage pattern
@@ -22,7 +26,6 @@ npm run dev
 
 ### TODO
 
-- Create claim endpoint
 - List & filter claim endpoint
 
 ### Gotchas

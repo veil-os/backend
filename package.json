@@ -9,9 +9,7 @@
     "depcheck": "depcheck . --ignores=\"serverless-*\"",
     "sls-config-check": "sls print --account_id PLACEHOLDER",
     "test": "IS_OFFLINE=true jest --testPathPattern=src",
-    "test:ci": "sls offline start --exec 'npm run test && npm run test:integration && npm run test:e2e'",
-    "test:watch": "npm run test -- --watch",
-    "test:integration": "IS_OFFLINE=true jest --testPathPattern=test/integration",
+    "e2e": "DEBUG=shrouded* ts-node test/e2e.ts",
     "lint": "eslint . --ext ts,js --max-warnings 0",
     "lint:fix": "npm run lint -- --fix",
     "typecheck": "tsc --noEmit",
@@ -65,6 +63,7 @@
     "serverless-webpack": "^5.3.5",
     "ts-jest": "^26.4.4",
     "ts-loader": "^6.2.2",
+    "ts-node": "^9.1.1",
     "typescript": "^3.7.5",
     "webpack": "^4.42.1",
     "webpack-node-externals": "^1.7.2"

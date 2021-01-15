@@ -46,6 +46,20 @@ functions:
           path: /claim
           method: post
           cors: true
+  listClaimsExternalNullifier:
+    handler: src/functionHandlers/listClaims/index.handler
+    events:
+      - http:
+          path: /claim/{identityGroup}/{externalNullifier}
+          method: get
+          cors: true
+  listClaims:
+    handler: src/functionHandlers/listClaims/index.handler
+    events:
+      - http:
+          path: /claim/{identityGroup}
+          method: get
+          cors: true
 resources:
   Resources:
     ShroudedTable:

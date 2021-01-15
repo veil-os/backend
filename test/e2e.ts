@@ -1,16 +1,38 @@
 // Test running without Jest as proof cannot be generated in Jest environment
-import axios from "axios";
+import axios from "axios"; // eslint-disable-line import/no-extraneous-dependencies
 import { format } from "date-fns";
 import { v4 as uuid } from "uuid";
-import { getLogger } from "../src/common/logger";
-import { snarkProofBigInt } from "../src/common/snarkProof";
 import { genIdentity, genCircuit, genProof, genWitness, genIdentityCommitment, genPublicSignals } from "libsemaphore";
 import { BigNumber, utils } from "ethers";
 import { readFileSync } from "fs";
+import { snarkProofBigInt } from "../src/common/snarkProof";
+import { getLogger } from "../src/common/logger";
 
 const URL = "http://localhost:3000";
 const TEST_ID = uuid();
-const { info, debug } = getLogger(`E2E-TEST`);
+const { info, debug, error } = getLogger(`E2E-TEST`);
+
+/*
+
+Test Scenario
+
+This test simulate a case where there are two beneficiaries (beneficiary 1 & beneficiary 2)
+who are mean tested by a government agency to be in an underprivileged group. The group is
+used by a NGO ran food distribution program. 
+
+The script demonstrate that the identity of the claimant is fully concealed from both the 
+admin from the government who maintains the identity group as well as the program owner who
+runs the food distribution program. Multiple independently ran program can use use a common 
+external nullifier (ie FOOD_DISTRIBUTION-20210115) to prevent double dipping across different
+distribution sites while maintaining full privacy of the individuals. 
+
+The group membership is maintained by the government (admin).
+
+All records on the database are public and can be audited.
+
+Full description of the scenario available at https://geek.sg/blog/decentralized-food-distribution-organisation
+
+*/
 
 const runTest = async () => {
   info("[Setup] Generating circuit");
@@ -91,11 +113,25 @@ const runTest = async () => {
   info(claimSubmissionRes.data);
 
   info(`[Program Owner] Checking Claims`);
-  // TBD
+  const claimsRes = await axios.get(`${URL}/claim/${identityGroup}`);
+  debug(claimsRes.data);
+  const claimData = claimsRes.data[0];
+
+  info(`[Public Info]`);
+  info(`Identity Group: ${claimData.identityGroup}`);
+  info(`Identity Group Merkle Root: ${claimData.proof.merkleRoot}`);
+  info(`External Nullifier: ${claimData.externalNullifier}`);
+  info(`Message: ${claimData.message}`);
+
+  info(`[Private Info]`);
+  info(`Beneficiary 1 Private Key: ${id1.keypair.privKey.toString("hex")}`);
+  info(`Beneficiary 1 Public Key: ${id1.keypair.pubKey[0].toString()}${id1.keypair.pubKey[1].toString()}`);
+  info(`Beneficiary 1 Identity Nullifier: ${id1.identityNullifier.toString()}`);
+  info(`Beneficiary 1 Identity Trapdoor: ${id1.identityTrapdoor.toString()}`);
 };
 
 runTest()
-  .catch(console.error)
+  .catch(error)
   .finally(() => {
     process.exit(0);
   });

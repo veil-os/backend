@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase,no-undef */
 import { Record, String, Tuple, Static } from "runtypes";
 import { SnarkProof } from "libsemaphore";
 

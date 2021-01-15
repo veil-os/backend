@@ -3,12 +3,6 @@ import { config } from "../config";
 
 const logger = debug(`${config.appName}`);
 
-if (!process.env.JEST_WORKER_ID) {
-  // enable log outputs if not running in jest
-  // also disable annoying axios follow redirects logs
-  debug.enable(`${config.appName}:*`);
-}
-
 interface Logger {
   trace: debug.Debugger;
   debug: debug.Debugger;

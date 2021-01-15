@@ -13,147 +13,150 @@ npm run dev
 An E2E test has been created at `test/e2e.ts` to facilitate the understanding of how this backend should be used. The scenario is explained in the file comment.
 
 ```txt
-shrouded:info:E2E-TEST [Setup] Generating circuit +0ms
-shrouded:info:E2E-TEST [Admin] Creating new identity group +2s
-shrouded:debug:E2E-TEST {
-shrouded:debug:E2E-TEST   identityGroup: 'f1f9b9cf-8fd0-4d5b-9d01-204233daa98f',
-shrouded:debug:E2E-TEST   name: 'TESTING-GROUP-5ccc53e7-aa37-4f54-9335-941635a2d6b4'
-shrouded:debug:E2E-TEST } +0ms
-shrouded:info:E2E-TEST [Admin] Identity group created: f1f9b9cf-8fd0-4d5b-9d01-204233daa98f +61ms
-shrouded:info:E2E-TEST [Beneficiary 1] Generating identity +0ms
-shrouded:debug:E2E-TEST {
-shrouded:debug:E2E-TEST   keypair: {
-shrouded:debug:E2E-TEST     pubKey: [
-shrouded:debug:E2E-TEST       14407614311200499839578837500851771610098518822576987098739216557205966160068n,
-shrouded:debug:E2E-TEST       12405095474148962665141997301515687766069743771498686268274601174460370476234n
-shrouded:debug:E2E-TEST     ],
-shrouded:debug:E2E-TEST     privKey: <Buffer 64 a1 04 d4 9e 77 88 ca e9 58 94 7a e9 9c 42 ed 8f bc a2 5e 01 65 2c 6d 17 da 03 b3 c2 eb 24 71>
-shrouded:debug:E2E-TEST   },
-shrouded:debug:E2E-TEST   identityNullifier: 188853213167194630888914206099642162209461987674682079768846100689524158926n,
-shrouded:debug:E2E-TEST   identityTrapdoor: 209163816875340288802104240511935087440774580119208381639981492932889222843n
-shrouded:debug:E2E-TEST } +113ms
-shrouded:info:E2E-TEST [Beneficiary 1] Generating identity commitment +110ms
-shrouded:info:E2E-TEST [Beneficiary 1] Identity commitment: 5309918541969448733395034726813899689955608803522360103143102267847842539655 +603ms
-shrouded:info:E2E-TEST [Beneficiary 2] Generating identity +0ms
-shrouded:debug:E2E-TEST {
-shrouded:debug:E2E-TEST   keypair: {
-shrouded:debug:E2E-TEST     pubKey: [
-shrouded:debug:E2E-TEST       13186149189783736204533194915124492635956712853987012243080441905037265825281n,
-shrouded:debug:E2E-TEST       19158598879623627749993662672372263276983304660251353814711921445654036806994n
-shrouded:debug:E2E-TEST     ],
-shrouded:debug:E2E-TEST     privKey: <Buffer 4b 05 c5 d5 91 97 3b 37 c8 93 91 58 ca ff 4e c1 37 aa 63 7a 5b 76 5d 3d aa 8c 71 c5 d6 a4 e9 31>
-shrouded:debug:E2E-TEST   },
-shrouded:debug:E2E-TEST   identityNullifier: 20708385848256113170249050395861627229921804917622663993868409365902994295n,
-shrouded:debug:E2E-TEST   identityTrapdoor: 163636187515378546921152351198733932290934772079826370875785395755571464343n
-shrouded:debug:E2E-TEST } +714ms
-shrouded:info:E2E-TEST [Beneficiary 2] Generating identity commitment +111ms
-shrouded:info:E2E-TEST [Beneficiary 2] Identity commitment: 15753359531653973128177436672861128347511577047510240457089589044961002968076 +281ms
-shrouded:info:E2E-TEST [Admin] Registering beneficiary 1 identity commitment +0ms
-shrouded:debug:E2E-TEST {
-shrouded:debug:E2E-TEST   identityGroup: 'f1f9b9cf-8fd0-4d5b-9d01-204233daa98f',
-shrouded:debug:E2E-TEST   identityCommitment: '5309918541969448733395034726813899689955608803522360103143102267847842539655'
-shrouded:debug:E2E-TEST } +332ms
-shrouded:info:E2E-TEST [Admin] Registering beneficiary 2 identity commitment +50ms
-shrouded:debug:E2E-TEST {
-shrouded:debug:E2E-TEST   identityGroup: 'f1f9b9cf-8fd0-4d5b-9d01-204233daa98f',
-shrouded:debug:E2E-TEST   identityCommitment: '15753359531653973128177436672861128347511577047510240457089589044961002968076'
-shrouded:debug:E2E-TEST } +53ms
-shrouded:info:E2E-TEST [Program Owner] Using external nullifier: FOOD_COLLECTION-20210115 +55ms
-shrouded:debug:E2E-TEST BigNumber {
-shrouded:debug:E2E-TEST   _hex: '0x464f4f445f434f4c4c454354494f4e2d3230323130313135',
-shrouded:debug:E2E-TEST   _isBigNumber: true
-shrouded:debug:E2E-TEST } +2ms
-shrouded:info:E2E-TEST [Beneficiary 1] Generating claim for given program +1ms
-shrouded:info:E2E-TEST [Beneficiary 1] Fetching identity commitment list +0ms
-shrouded:debug:E2E-TEST [
-shrouded:debug:E2E-TEST   {
-shrouded:debug:E2E-TEST     identityGroup: 'f1f9b9cf-8fd0-4d5b-9d01-204233daa98f',
-shrouded:debug:E2E-TEST     identityCommitment: '15753359531653973128177436672861128347511577047510240457089589044961002968076'
-shrouded:debug:E2E-TEST   },
-shrouded:debug:E2E-TEST   {
-shrouded:debug:E2E-TEST     identityGroup: 'f1f9b9cf-8fd0-4d5b-9d01-204233daa98f',
-shrouded:debug:E2E-TEST     identityCommitment: '5309918541969448733395034726813899689955608803522360103143102267847842539655'
-shrouded:debug:E2E-TEST   }
-shrouded:debug:E2E-TEST ] +41ms
-shrouded:info:E2E-TEST [Beneficiary 1] Building local identity commitment tree +40ms
-shrouded:debug:E2E-TEST [
-shrouded:debug:E2E-TEST   BigNumber {
-shrouded:debug:E2E-TEST     _hex: '0x22d415e4b021937a3bb9b85a543b43a40b105b1df3b07611898dc80de6b4d40c',
-shrouded:debug:E2E-TEST     _isBigNumber: true
-shrouded:debug:E2E-TEST   },
-shrouded:debug:E2E-TEST   BigNumber {
-shrouded:debug:E2E-TEST     _hex: '0x0bbd4eb127bcabbecd6097f0238cd917064c37738146b2fd5fea701a21d52887',
-shrouded:debug:E2E-TEST     _isBigNumber: true
-shrouded:debug:E2E-TEST   }
-shrouded:debug:E2E-TEST ] +1ms
-shrouded:info:E2E-TEST [Beneficiary 1] Generating witness +2ms
-shrouded:info:E2E-TEST [Beneficiary 1] Generating proof +5s
-shrouded:debug:E2E-TEST {
-shrouded:debug:E2E-TEST   pi_a: [
-shrouded:debug:E2E-TEST     881913873837953430104711549943955784239992049707747113025913540387281541532n,
-shrouded:debug:E2E-TEST     4462197506235014131734745912357898685734207017876055315454792825419394968679n,
-shrouded:debug:E2E-TEST     1n
-shrouded:debug:E2E-TEST   ],
-shrouded:debug:E2E-TEST   pi_b: [
-shrouded:debug:E2E-TEST     [
-shrouded:debug:E2E-TEST       8931121846011622530661469497022573410989807757220154217466232688763329728654n,
-shrouded:debug:E2E-TEST       3230980496782425382109078016547721886971569841595158257998614792987553288863n
-shrouded:debug:E2E-TEST     ],
-shrouded:debug:E2E-TEST     [
-shrouded:debug:E2E-TEST       17183630602151890216735336335242988103945572954815858456565848789696559693058n,
-shrouded:debug:E2E-TEST       13131044771356737819877206133498569770618004608440538215705418950922853593590n
-shrouded:debug:E2E-TEST     ],
-shrouded:debug:E2E-TEST     [ 1n, 0n ]
-shrouded:debug:E2E-TEST   ],
-shrouded:debug:E2E-TEST   pi_c: [
-shrouded:debug:E2E-TEST     18779977373339887653957421322432684247792792594685901930588337267336138991060n,
-shrouded:debug:E2E-TEST     12188913052044968321263912756759311797606928985512536516078518706957988202150n,
-shrouded:debug:E2E-TEST     1n
-shrouded:debug:E2E-TEST   ]
-shrouded:debug:E2E-TEST } +19s
-shrouded:info:E2E-TEST [Beneficiary 1] Generating public signal +15s
-shrouded:debug:E2E-TEST [
-shrouded:debug:E2E-TEST   6564174285915950489434699202346461205545906611455724975719462890454120247164n,
-shrouded:debug:E2E-TEST   1531687943065428729195210423643599544760002075387111325991365919806491187465n,
-shrouded:debug:E2E-TEST   324435173924234642046472247965735262526828400981893803033103980410751275176n,
-shrouded:debug:E2E-TEST   1723991359837900747271504961393156169423940698095754490165n
-shrouded:debug:E2E-TEST ] +0ms
-shrouded:info:E2E-TEST [Beneficiary 1] Constructing claim payload +1ms
-shrouded:debug:E2E-TEST {
-shrouded:debug:E2E-TEST   proof: {
-shrouded:debug:E2E-TEST     snarkProof: { pi_a: [Array], pi_b: [Array], pi_c: [Array] },
-shrouded:debug:E2E-TEST     merkleRoot: '6564174285915950489434699202346461205545906611455724975719462890454120247164'
-shrouded:debug:E2E-TEST   },
-shrouded:debug:E2E-TEST   nullifier: '1531687943065428729195210423643599544760002075387111325991365919806491187465',
-shrouded:debug:E2E-TEST   identityGroup: 'f1f9b9cf-8fd0-4d5b-9d01-204233daa98f',
-shrouded:debug:E2E-TEST   externalNullifier: 'FOOD_COLLECTION-20210115',
-shrouded:debug:E2E-TEST   message: 'ABC PTE LTD'
-shrouded:debug:E2E-TEST } +1ms
-shrouded:info:E2E-TEST [Beneficiary 1] Submitting Claim +0ms
-shrouded:info:E2E-TEST { success: true } +2s
-shrouded:info:E2E-TEST [Program Owner] Checking Claims +1ms
-shrouded:debug:E2E-TEST [
-shrouded:debug:E2E-TEST   {
-shrouded:debug:E2E-TEST     identityGroup: 'f1f9b9cf-8fd0-4d5b-9d01-204233daa98f',
-shrouded:debug:E2E-TEST     externalNullifier: 'FOOD_COLLECTION-20210115',
-shrouded:debug:E2E-TEST     nullifier: '1531687943065428729195210423643599544760002075387111325991365919806491187465',
-shrouded:debug:E2E-TEST     message: 'ABC PTE LTD',
-shrouded:debug:E2E-TEST     proof: {
-shrouded:debug:E2E-TEST       merkleRoot: '6564174285915950489434699202346461205545906611455724975719462890454120247164',
-shrouded:debug:E2E-TEST       snarkProof: [Object]
-shrouded:debug:E2E-TEST     }
-shrouded:debug:E2E-TEST   }
-shrouded:debug:E2E-TEST ] +2s
-shrouded:info:E2E-TEST [Public Info] +39ms
-shrouded:info:E2E-TEST Identity Group: f1f9b9cf-8fd0-4d5b-9d01-204233daa98f +0ms
-shrouded:info:E2E-TEST Identity Group Merkle Root: 6564174285915950489434699202346461205545906611455724975719462890454120247164 +0ms
-shrouded:info:E2E-TEST External Nullifier: FOOD_COLLECTION-20210115 +0ms
-shrouded:info:E2E-TEST Message: ABC PTE LTD +0ms
-shrouded:info:E2E-TEST [Private Info] +0ms
-shrouded:info:E2E-TEST Beneficiary 1 Private Key: 64a104d49e7788cae958947ae99c42ed8fbca25e01652c6d17da03b3c2eb2471 +0ms
-shrouded:info:E2E-TEST Beneficiary 1 Public Key: 1440761431120049983957883750085177161009851882257698709873921655720596616006812405095474148962665141997301515687766069743771498686268274601174460370476234 +0ms
-shrouded:info:E2E-TEST Beneficiary 1 Identity Nullifier: 188853213167194630888914206099642162209461987674682079768846100689524158926 +0ms
-shrouded:info:E2E-TEST Beneficiary 1 Identity Trapdoor: 209163816875340288802104240511935087440774580119208381639981492932889222843 +0ms
+[Setup] Generating circuit +0ms
+[Admin] Creating new identity group +2s
+{
+  identityGroup: '3cf52405-fb16-49b8-b527-0bdfb4c1eff6',
+  name: 'TESTING-GROUP-5b731cef-644f-4459-990a-3e2da8d6fc04'
+} +0ms
+[Admin] Identity group created: 3cf52405-fb16-49b8-b527-0bdfb4c1eff6 +267ms
+[Beneficiary 1] Generating identity +0ms
+{
+  keypair: {
+    pubKey: [
+      350740956551250705214987504665266975801031435200532522672855063012732874353n,
+      5269281482163661041517939318996085075131524331642910892609592578530910250309n
+    ],
+    privKey: <Buffer ed dc 8b 61 24 5d b5 af 21 0c 22 54 bf a6 93 6d 72 e8 fd 6d 81 c8 f3 a6 d9 3d ec 4c 74 41 e4 fa>
+  },
+  identityNullifier: 202347954406892800823928141326719998596564709375450462659611594189994687713n,
+  identityTrapdoor: 424486514784792947204882796652646236828875758921402080636399431563042088049n
+} +114ms
+[Beneficiary 1] Generating identity commitment +111ms
+[Beneficiary 1] Identity commitment: 5670441046312515395089567490843220533481600897314437395572831854447937261945 +671ms
+[Beneficiary 2] Generating identity +0ms
+{
+  keypair: {
+    pubKey: [
+      16294649383507685716231213588054890377608487763962122930733987663372615587625n,
+      1316903913154966532104427018627509755912821745438879593434946629090568502048n
+    ],
+    privKey: <Buffer c9 12 43 bf 70 c9 7f 40 38 76 16 64 0b 3f e7 b1 55 ee da 0b 2c f6 56 41 24 32 a9 c2 9b a3 87 03>
+  },
+  identityNullifier: 287635148435222581931159341869104073538528497534701690600888149033348288979n,
+  identityTrapdoor: 428633634755015402543220609018967836030194341805052840127100006547540107825n
+} +750ms
+[Beneficiary 2] Generating identity commitment +79ms
+[Beneficiary 2] Identity commitment: 14203514989670951254926267063248638126316664879862808861407710434551369067567 +313ms
+[Admin] Registering beneficiary 1 identity commitment +0ms
+{
+  identityGroup: '3cf52405-fb16-49b8-b527-0bdfb4c1eff6',
+  identityCommitment: '5670441046312515395089567490843220533481600897314437395572831854447937261945'
+} +440ms
+[Admin] Registering beneficiary 2 identity commitment +129ms
+{
+  identityGroup: '3cf52405-fb16-49b8-b527-0bdfb4c1eff6',
+  identityCommitment: '14203514989670951254926267063248638126316664879862808861407710434551369067567'
+} +203ms
+[Program Owner] Using external nullifier: FOOD_COLLECTION-20210115 +204ms
+BigNumber {
+  _hex: '0x464f4f445f434f4c4c454354494f4e2d3230323130313135',
+  _isBigNumber: true
+} +5ms
+[Beneficiary 1] Generating claim for given program +2ms
+[Beneficiary 1] Fetching identity commitment list +0ms
+[
+  {
+    identityGroup: '3cf52405-fb16-49b8-b527-0bdfb4c1eff6',
+    identityCommitment: '14203514989670951254926267063248638126316664879862808861407710434551369067567'
+  },
+  {
+    identityGroup: '3cf52405-fb16-49b8-b527-0bdfb4c1eff6',
+    identityCommitment: '5670441046312515395089567490843220533481600897314437395572831854447937261945'
+  }
+] +257ms
+[Beneficiary 1] Building local identity commitment tree +256ms
+[
+  BigNumber {
+    _hex: '0x1f66e7939c55d699cf3568c13ddcfc72897e3fcfeae93a957874a9add6a06c2f',
+    _isBigNumber: true
+  },
+  BigNumber {
+    _hex: '0x0c895b1c0f98fa1c3b73494e25c3dba65489312a9d403e9ab5509411b3711179',
+    _isBigNumber: true
+  }
+] +1ms
+[Beneficiary 1] Generating witness +2ms
+[Beneficiary 1] Generating proof +5s
+{
+  pi_a: [
+    13152916898568626751663943846277646276824524603942724617251125951667211927946n,
+    6570569318010475923154154209295447380732919360670136774501846382031156338331n,
+    1n
+  ],
+  pi_b: [
+    [
+      2777756540867876850976645364464945326307712448829676586936299520098960144695n,
+      9023639278554049203002162399222277434126076947661873704508689589664253234764n
+    ],
+    [
+      10179778203658333176605659052662193027885441197119593791683423175048910824018n,
+      10663779759812064083913541516140756236466083003947972047589957818912292511619n
+    ],
+    [ 1n, 0n ]
+  ],
+  pi_c: [
+    14625987718161697816488080099259175606915306523091408807315141760321903094289n,
+    311702119016542090874682127707961115459344731107448386653943312098241520018n,
+    1n
+  ]
+} +20s
+[Beneficiary 1] Generating public signal +15s
+[
+  15456193694570897017486779502376898279412523586670086337677971557885341901516n,
+  719739271802115620109154458457783647900532048870971696533125059658944714450n,
+  324435173924234642046472247965735262526828400981893803033103980410751275176n,
+  1723991359837900747271504961393156169423940698095754490165n
+] +1ms
+[Beneficiary 1] Constructing claim payload +0ms
+{
+  proof: {
+    snarkProof: { pi_a: [Array], pi_b: [Array], pi_c: [Array] },
+    merkleRoot: '15456193694570897017486779502376898279412523586670086337677971557885341901516'
+  },
+  nullifier: '719739271802115620109154458457783647900532048870971696533125059658944714450',
+  identityGroup: '3cf52405-fb16-49b8-b527-0bdfb4c1eff6',
+  externalNullifier: 'FOOD_COLLECTION-20210115',
+  message: 'ABC PTE LTD'
+} +0ms
+[Beneficiary 1] Submitting Claim +1ms
+{ success: true } +3s
+[Program Owner] Checking Claims +1ms
+[
+  {
+    identityGroup: '3cf52405-fb16-49b8-b527-0bdfb4c1eff6',
+    externalNullifier: 'FOOD_COLLECTION-20210115',
+    nullifier: '719739271802115620109154458457783647900532048870971696533125059658944714450',
+    message: 'ABC PTE LTD',
+    proof: {
+      merkleRoot: '15456193694570897017486779502376898279412523586670086337677971557885341901516',
+      snarkProof: [Object]
+    }
+  }
+] +3s
+[Public Info] +51ms
+Identity Group: 3cf52405-fb16-49b8-b527-0bdfb4c1eff6 +0ms
+Identity Group Merkle Root: 15456193694570897017486779502376898279412523586670086337677971557885341901516 +0ms
+External Nullifier: FOOD_COLLECTION-20210115 +0ms
+Nullifier: 719739271802115620109154458457783647900532048870971696533125059658944714450 +0ms
+Message: ABC PTE LTD +0ms
+[Private Info] +1ms
+Beneficiary 1 Private Key: eddc8b61245db5af210c2254bfa6936d72e8fd6d81c8f3a6d93dec4c7441e4fa +0ms
+Beneficiary 1 Public Key: 3507409565512507052149875046652669758010314352005325226728550630127328743535269281482163661041517939318996085075131524331642910892609592578530910250309 +0ms
+Beneficiary 1 Identity Nullifier: 202347954406892800823928141326719998596564709375450462659611594189994687713 +0ms
+Beneficiary 1 Identity Trapdoor: 424486514784792947204882796652646236828875758921402080636399431563042088049 +0ms
+
+Done in 32.72s.
 ```
 
 ## Notes
@@ -170,7 +173,7 @@ shrouded:info:E2E-TEST Beneficiary 1 Identity Trapdoor: 209163816875340288802104
 
 ### TODO
 
-- List & filter claim endpoint
+- Filter claim endpoint
 
 ### Gotchas
 

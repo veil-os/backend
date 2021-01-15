@@ -121,6 +121,7 @@ const runTest = async () => {
   info(`Identity Group: ${claimData.identityGroup}`);
   info(`Identity Group Merkle Root: ${claimData.proof.merkleRoot}`);
   info(`External Nullifier: ${claimData.externalNullifier}`);
+  info(`Nullifier: ${claimData.nullifier}`);
   info(`Message: ${claimData.message}`);
 
   info(`[Private Info]`);

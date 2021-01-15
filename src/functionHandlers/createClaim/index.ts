@@ -38,7 +38,7 @@ const handleCreateClaim = async (event: APIGatewayEvent) => {
   const { identityGroup } = body;
 
   // Check if identity group exists
-  const savedIdentityGroup = await getIdentityGroupEntry({ identityGroup: identityGroup });
+  const savedIdentityGroup = await getIdentityGroupEntry({ identityGroup });
   if (!savedIdentityGroup) throw new Error(`Identity group ${identityGroup} does not exist`);
 
   // Check that identity group's merkle root is same as claim's merkle root

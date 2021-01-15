@@ -9,7 +9,7 @@
     "depcheck": "depcheck . --ignores=\"serverless-*\"",
     "sls-config-check": "sls print --account_id PLACEHOLDER",
     "test": "IS_OFFLINE=true jest --testPathPattern=src",
-    "e2e": "ts-node test/e2e.ts",
+    "e2e": "DEBUG=shrouded* ts-node test/e2e.ts",
     "lint": "eslint . --ext ts,js --max-warnings 0",
     "lint:fix": "npm run lint -- --fix",
     "typecheck": "tsc --noEmit",

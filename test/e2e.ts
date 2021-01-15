@@ -1,16 +1,16 @@
 // Test running without Jest as proof cannot be generated in Jest environment
-import axios from "axios";
+import axios from "axios"; // eslint-disable-line import/no-extraneous-dependencies
 import { format } from "date-fns";
 import { v4 as uuid } from "uuid";
-import { getLogger } from "../src/common/logger";
-import { snarkProofBigInt } from "../src/common/snarkProof";
 import { genIdentity, genCircuit, genProof, genWitness, genIdentityCommitment, genPublicSignals } from "libsemaphore";
 import { BigNumber, utils } from "ethers";
 import { readFileSync } from "fs";
+import { snarkProofBigInt } from "../src/common/snarkProof";
+import { getLogger } from "../src/common/logger";
 
 const URL = "http://localhost:3000";
 const TEST_ID = uuid();
-const { info, debug } = getLogger(`E2E-TEST`);
+const { info, debug, error } = getLogger(`E2E-TEST`);
 
 /*
 
@@ -114,11 +114,24 @@ const runTest = async () => {
 
   info(`[Program Owner] Checking Claims`);
   const claimsRes = await axios.get(`${URL}/claim/${identityGroup}`);
-  info(claimsRes.data);
+  debug(claimsRes.data);
+  const claimData = claimsRes.data[0];
+
+  info(`[Public Info]`);
+  info(`Identity Group: ${claimData.identityGroup}`);
+  info(`Identity Group Merkle Root: ${claimData.proof.merkleRoot}`);
+  info(`External Nullifier: ${claimData.externalNullifier}`);
+  info(`Message: ${claimData.message}`);
+
+  info(`[Private Info]`);
+  info(`Beneficiary 1 Private Key: ${id1.keypair.privKey.toString("hex")}`);
+  info(`Beneficiary 1 Public Key: ${id1.keypair.pubKey[0].toString()}${id1.keypair.pubKey[1].toString()}`);
+  info(`Beneficiary 1 Identity Nullifier: ${id1.identityNullifier.toString()}`);
+  info(`Beneficiary 1 Identity Trapdoor: ${id1.identityTrapdoor.toString()}`);
 };
 
 runTest()
-  .catch(console.error)
+  .catch(error)
   .finally(() => {
     process.exit(0);
   });

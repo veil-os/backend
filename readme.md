@@ -174,6 +174,7 @@ Done in 32.72s.
 ### TODO
 
 - Filter claim endpoint
+- Given identity commitment, find out which identity group I'm in
 
 ### Gotchas
 

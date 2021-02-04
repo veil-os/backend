@@ -55,7 +55,7 @@ export const insertClaimEntry = async (claim: Claim) => {
     Item: transformClaimToEntry(claim)
   };
   await put(param);
-  return param.Item;
+  return transformEntryToClaim(param.Item);
 };
 
 export const getClaim = async ({

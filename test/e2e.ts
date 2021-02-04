@@ -2,7 +2,16 @@
 import axios from "axios"; // eslint-disable-line import/no-extraneous-dependencies
 import { format } from "date-fns";
 import { v4 as uuid } from "uuid";
-import { genIdentity, genCircuit, genProof, genWitness, genIdentityCommitment, genPublicSignals } from "libsemaphore";
+import {
+  genIdentity,
+  genCircuit,
+  genProof,
+  genWitness,
+  genIdentityCommitment,
+  genPublicSignals,
+  serialiseIdentity,
+  unSerialiseIdentity
+} from "libsemaphore";
 import { BigNumber, utils } from "ethers";
 import { readFileSync } from "fs";
 import { snarkProofBigInt } from "../src/common/snarkProof";
@@ -11,6 +20,9 @@ import { getLogger } from "../src/common/logger";
 const URL = "http://localhost:3000";
 const TEST_ID = uuid();
 const { info, debug, error } = getLogger(`E2E-TEST`);
+
+// Hardcoded user that can be used for testing elsewhere
+const DEFAULT_USER = `["0fc6d6d4aede3c074e76bcac32efb1512cd3579e380c6ea0d337365c5c41a017","b9106e79df2823b09353db3a52cf1f07fac9554959c60cf94cc0f89c73fcc3","925d273efaade967cce57ddc930401b5e810a18630103521ca34d2a207dffb"]`;
 
 /*
 
@@ -46,9 +58,14 @@ const runTest = async () => {
   const { identityGroup } = createdIdentityGroupRes.data;
   info(`[Admin] Identity group created: ${identityGroup}`);
 
+  info("[Public] Listing identity group");
+  const identityGroupListRes = await axios.get(`${URL}/identityGroup`);
+  info(`[Public] Identity groups: ${JSON.stringify(identityGroupListRes.data, null, 2)}`);
+
   info("[Beneficiary 1] Generating identity");
   const id1 = genIdentity();
   debug(id1);
+  info(`[Beneficiary 1] Identity: ${serialiseIdentity(id1)}`);
   info(`[Beneficiary 1] Generating identity commitment`);
   const idc1 = genIdentityCommitment(id1);
   info(`[Beneficiary 1] Identity commitment: ${idc1}`);
@@ -56,9 +73,18 @@ const runTest = async () => {
   info("[Beneficiary 2] Generating identity");
   const id2 = genIdentity();
   debug(id2);
+  info(`[Beneficiary 2] Identity: ${serialiseIdentity(id2)}`);
   info(`[Beneficiary 2] Generating identity commitment`);
   const idc2 = genIdentityCommitment(id2);
   info(`[Beneficiary 2] Identity commitment: ${idc2}`);
+
+  info("[Beneficiary 3] Loading identity");
+  const id3 = unSerialiseIdentity(DEFAULT_USER);
+  debug(id3);
+  info(`[Beneficiary 3] Identity: ${DEFAULT_USER}`);
+  info(`[Beneficiary 3] Generating identity commitment`);
+  const idc3 = genIdentityCommitment(id3);
+  info(`[Beneficiary 3] Identity commitment: ${idc3}`);
 
   info("[Admin] Registering beneficiary 1 identity commitment");
   const registration1Res = await axios.post(`${URL}/identityCommitment`, {
@@ -73,6 +99,13 @@ const runTest = async () => {
     identityCommitment: idc2.toString()
   });
   debug(registration2Res.data);
+
+  info("[Admin] Registering beneficiary 3 identity commitment");
+  const registration3Res = await axios.post(`${URL}/identityCommitment`, {
+    identityGroup,
+    identityCommitment: idc3.toString()
+  });
+  debug(registration3Res.data);
 
   const externalNullifierStr = `FOOD_COLLECTION-${format(new Date(), "yyyyMMdd")}`;
   info(`[Program Owner] Using external nullifier: ${externalNullifierStr}`);

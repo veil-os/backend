@@ -7,7 +7,18 @@ describe("transformEntryToClaim", () => {
       SK: "#EXTERNAL_NULLIFIER#ext_null_1#null_1",
       data: {
         message: "test message",
-        proof: { foo: "bar" }
+        proof: {
+          merkleRoot: "",
+          snarkProof: {
+            pi_a: ["11", "11", "11"],
+            pi_b: [
+              ["11", "11"],
+              ["11", "11"],
+              ["11", "11"]
+            ],
+            pi_c: ["11", "11", "11"]
+          }
+        }
       }
     };
     expect(transformEntryToClaim(entry)).toMatchInlineSnapshot(`
@@ -17,7 +28,33 @@ describe("transformEntryToClaim", () => {
         "message": "test message",
         "nullifier": "null_1",
         "proof": Object {
-          "foo": "bar",
+          "merkleRoot": "",
+          "snarkProof": Object {
+            "pi_a": Array [
+              "11",
+              "11",
+              "11",
+            ],
+            "pi_b": Array [
+              Array [
+                "11",
+                "11",
+              ],
+              Array [
+                "11",
+                "11",
+              ],
+              Array [
+                "11",
+                "11",
+              ],
+            ],
+            "pi_c": Array [
+              "11",
+              "11",
+              "11",
+            ],
+          },
         },
       }
     `);
@@ -31,7 +68,18 @@ describe("transformClaimToEntry", () => {
       identityGroup: "idg1",
       message: "hello world",
       nullifier: "null_1",
-      proof: { foo: "bar" }
+      proof: {
+        merkleRoot: "",
+        snarkProof: {
+          pi_a: ["11", "11", "11"],
+          pi_b: [
+            ["11", "11"],
+            ["11", "11"],
+            ["11", "11"]
+          ],
+          pi_c: ["11", "11", "11"]
+        }
+      }
     };
     expect(transformClaimToEntry(idc)).toMatchInlineSnapshot(`
       Object {
@@ -40,7 +88,33 @@ describe("transformClaimToEntry", () => {
         "data": Object {
           "message": "hello world",
           "proof": Object {
-            "foo": "bar",
+            "merkleRoot": "",
+            "snarkProof": Object {
+              "pi_a": Array [
+                "11",
+                "11",
+                "11",
+              ],
+              "pi_b": Array [
+                Array [
+                  "11",
+                  "11",
+                ],
+                Array [
+                  "11",
+                  "11",
+                ],
+                Array [
+                  "11",
+                  "11",
+                ],
+              ],
+              "pi_c": Array [
+                "11",
+                "11",
+                "11",
+              ],
+            },
           },
         },
       }

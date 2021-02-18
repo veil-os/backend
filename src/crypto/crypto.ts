@@ -2,13 +2,13 @@ import { verifyProof, parseVerifyingKeyJson, genSignalHash, genTree, unstringify
 import { BigNumber, utils } from "ethers";
 import verificationKeyRaw from "./circuit/verification_key.json";
 import { Claim, IdentityCommitment } from "../types";
+import { config } from "../config";
 
-const TREE_DEPTH = 20; // Based on generated circuit
-const verificationKey = parseVerifyingKeyJson(JSON.stringify(verificationKeyRaw));
+export const verificationKey = parseVerifyingKeyJson(JSON.stringify(verificationKeyRaw));
 
 export const getMerkleRoot = async (identityCommitments: IdentityCommitment[]) => {
   const leaves = identityCommitments.map(idc => BigNumber.from(idc.identityCommitment));
-  const tree = await genTree(TREE_DEPTH, leaves);
+  const tree = await genTree(config.semaphore.treeDepth, leaves);
   return tree.root() as string;
 };
 

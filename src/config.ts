@@ -12,7 +12,10 @@ const generateDynamoDb = () => ({
 
 const generateConfig = () => ({
   appName: "shrouded",
-  dynamodb: generateDynamoDb()
+  dynamodb: generateDynamoDb(),
+  semaphore: {
+    treeDepth: 10
+  }
 });
 
 export const config = generateConfig();

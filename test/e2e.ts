@@ -16,6 +16,7 @@ import { BigNumber, utils } from "ethers";
 import { readFileSync } from "fs";
 import { snarkProofBigInt } from "../src/common/snarkProof";
 import { getLogger } from "../src/common/logger";
+import { config } from "../src/config";
 
 const URL = "http://localhost:3000";
 const TEST_ID = uuid();
@@ -121,7 +122,7 @@ const runTest = async () => {
   debug(leaves);
   info(`[Beneficiary 1] Generating witness`);
   const message = "ABC PTE LTD";
-  const { witness } = await genWitness(message, circuit, id1, leaves, 20, externalNullifier);
+  const { witness } = await genWitness(message, circuit, id1, leaves, config.semaphore.treeDepth, externalNullifier);
   info(`[Beneficiary 1] Generating proof`);
   const proof = await genProof(witness, provingKeyJson);
   debug(proof);

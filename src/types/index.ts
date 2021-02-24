@@ -21,6 +21,7 @@ export interface Claim {
   externalNullifier: string;
   message: string;
   proof: Proof;
+  timestamp: number;
 }
 
 export interface DbEntry {

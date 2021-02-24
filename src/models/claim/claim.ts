@@ -1,4 +1,4 @@
-import { String, Record } from "runtypes";
+import { String, Record, Number } from "runtypes";
 import { SnarkProofRT, snarkProofBigInt } from "../../common/snarkProof";
 
 import { get, put, query, deleteItem } from "../../services/dynamoDb";
@@ -16,7 +16,8 @@ export const ClaimEntryRT = Record({
     proof: Record({
       merkleRoot: String,
       snarkProof: SnarkProofRT
-    })
+    }),
+    timestamp: Number
   })
 });
 
@@ -31,11 +32,19 @@ export const transformEntryToClaim = (raw: DbEntry): Claim => {
     proof: {
       merkleRoot: entry.data.proof.merkleRoot,
       snarkProof: snarkProofBigInt(entry.data.proof.snarkProof)
-    }
+    },
+    timestamp: entry.data.timestamp
   };
 };
 
-export const transformClaimToEntry = ({ identityGroup, externalNullifier, nullifier, message, proof }: Claim) => {
+export const transformClaimToEntry = ({
+  identityGroup,
+  externalNullifier,
+  nullifier,
+  message,
+  proof,
+  timestamp
+}: Claim) => {
   return {
     PK: `${PK_PREFIX}${identityGroup}`,
     SK: `${SK_PREFIX}${externalNullifier}#${nullifier}`,
@@ -44,7 +53,8 @@ export const transformClaimToEntry = ({ identityGroup, externalNullifier, nullif
       proof: {
         merkleRoot: proof.merkleRoot,
         snarkProof: snarkProofBigInt(proof.snarkProof)
-      }
+      },
+      timestamp
     }
   };
 };

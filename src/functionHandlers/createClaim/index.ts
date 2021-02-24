@@ -34,7 +34,8 @@ const handleCreateClaim = async (event: APIGatewayEvent) => {
     proof: {
       merkleRoot: body.proof.merkleRoot,
       snarkProof: proof
-    }
+    },
+    timestamp: Date.now()
   };
   const { identityGroup } = body;
 

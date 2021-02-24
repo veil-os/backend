@@ -18,7 +18,8 @@ describe("transformEntryToClaim", () => {
             ],
             pi_c: ["11", "11", "11"]
           }
-        }
+        },
+        timestamp: 1337
       }
     };
     expect(transformEntryToClaim(entry)).toMatchInlineSnapshot(`
@@ -56,6 +57,7 @@ describe("transformEntryToClaim", () => {
             ],
           },
         },
+        "timestamp": 1337,
       }
     `);
   });
@@ -79,7 +81,8 @@ describe("transformClaimToEntry", () => {
           ],
           pi_c: ["11", "11", "11"]
         }
-      }
+      },
+      timestamp: 1337
     };
     expect(transformClaimToEntry(idc)).toMatchInlineSnapshot(`
       Object {
@@ -116,6 +119,7 @@ describe("transformClaimToEntry", () => {
               ],
             },
           },
+          "timestamp": 1337,
         },
       }
     `);

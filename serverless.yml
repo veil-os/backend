@@ -1,4 +1,4 @@
-service: shrouded
+service: veilos
 provider:
   name: aws
   runtime: nodejs12.x
@@ -7,7 +7,7 @@ provider:
   stage: ${opt:stage, "dev"}
   region: ${opt:region, "ap-southeast-1"}
   environment:
-    TABLE_NAME: shrouded
+    TABLE_NAME: veilos
   tracing:
     lambda: true
 functions:
@@ -62,7 +62,7 @@ functions:
           cors: true
 resources:
   Resources:
-    ShroudedTable:
+    VeilOSTable:
       Type: "AWS::DynamoDB::Table"
       Properties:
         AttributeDefinitions:

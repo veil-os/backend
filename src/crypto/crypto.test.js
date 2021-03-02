@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
+// Using .js extension to prevent annoying tsc error on bigint
 import { verifyClaimSignals, getMerkleRoot } from "./crypto";
 
 describe("verifyClaimSignals", () => {
@@ -70,7 +71,8 @@ describe("verifyClaimSignals", () => {
       nullifier: "1305356353523040630876057258703884545463594833082370164470488680209172198793",
       identityGroup: "NOT_CHECKED",
       externalNullifier: "EXTERNAL_NULLIFIER",
-      message: "NOT_TEST_MESSAGE"
+      message: "NOT_TEST_MESSAGE",
+      timestamp: 1337
     });
     expect(verified).toBe(false);
   });

@@ -1,5 +1,6 @@
 import { APIGatewayEvent } from "aws-lambda";
 import { Record, String } from "runtypes";
+import { BadRequest } from "http-errors";
 import { publicRequestHandler } from "../../middlewares/handlers";
 import { getLogger } from "../../common/logger";
 import { verifyClaimSignals, getMerkleRoot } from "../../crypto";
@@ -7,7 +8,6 @@ import { getIdentityGroupEntry } from "../../models/identityGroup";
 import { listIdentityCommitmentEntries } from "../../models/identityCommitment";
 import { getClaim, insertClaimEntry } from "../../models/claim";
 import { SnarkProofRT, bigIntSnarkProof } from "../../common/snarkProof";
-import { BadRequest } from "http-errors";
 
 const { info } = getLogger("create claim");
 

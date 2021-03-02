@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase,no-undef */
 import { Record, String, Tuple, Static } from "runtypes";
-import { SnarkProof } from "libsemaphore";
+import { SnarkProof } from "../types";
 
 export const SnarkProofRT = Record({
   pi_a: Tuple(String, String, String),

@@ -1,5 +1,10 @@
-import { SnarkProof } from "libsemaphore";
+type SnarkBigInt = any;
 
+export interface SnarkProof {
+  pi_a: SnarkBigInt[];
+  pi_b: SnarkBigInt[][];
+  pi_c: SnarkBigInt[];
+}
 export interface IdentityGroup {
   identityGroup: string;
   name: string;

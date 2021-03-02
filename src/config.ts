@@ -1,5 +1,5 @@
 const generateDynamoDb = () => ({
-  table: process.env.TABLE_NAME || "shrouded",
+  table: process.env.TABLE_NAME || "veilos",
   client: process.env.IS_OFFLINE
     ? {
         region: "localhost",
@@ -11,7 +11,7 @@ const generateDynamoDb = () => ({
 });
 
 const generateConfig = () => ({
-  appName: "shrouded",
+  appName: "veilos",
   dynamodb: generateDynamoDb(),
   semaphore: {
     treeDepth: 10

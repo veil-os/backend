@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { transformEntryToClaim, transformClaimToEntry } from "./claim";
 
 describe("transformEntryToClaim", () => {

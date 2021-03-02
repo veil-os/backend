@@ -14,7 +14,7 @@ Platform:
   linux x64
 
 Trace: 
-  SyntaxError: /home/raymond/Desktop/self/shrouded/api/package.json: Unexpected token } in JSON at position 536
+  SyntaxError: /home/raymond/Desktop/self/veilos/api/package.json: Unexpected token } in JSON at position 536
       at JSON.parse (<anonymous>)
       at /home/raymond/.nvm/versions/node/v12.14.0/lib/node_modules/yarn/lib/cli.js:1625:59
       at Generator.next (<anonymous>)
@@ -23,7 +23,7 @@ Trace:
 
 npm manifest: 
   {
-    "name": "shrouded",
+    "name": "veilos",
     "version": "0.0.1",
     "description": "",
     "main": "index.js",
@@ -33,7 +33,7 @@ npm manifest:
       "depcheck": "depcheck . --ignores=\"serverless-*\"",
       "sls-config-check": "sls print --account_id PLACEHOLDER",
       "test": "IS_OFFLINE=true jest --testPathPattern=src",
-      "e2e": "DEBUG=shrouded* ts-node test/e2e.ts",
+      "e2e": "DEBUG=veilos* ts-node test/e2e.ts",
       "lint": "eslint . --ext ts,js --max-warnings 0",
       "lint:fix": "npm run lint -- --fix",
       "typecheck": "tsc --noEmit",

@@ -1,4 +1,4 @@
-# Shrouded API
+# VeilOS API
 
 ## Configuration
 

@@ -100,7 +100,7 @@ export const listClaimByIdentityGroup = async ({ identityGroup }: Pick<Claim, "i
 export const listClaimByExternalNullifier = async ({
   identityGroup,
   externalNullifier
-}: Pick<Claim, "externalNullifier" | "identityGroup">) => {
+}: Pick<Claim, "externalNullifier" | "identityGroup">): Promise<Claim[]> => {
   const params: AWS.DynamoDB.DocumentClient.QueryInput = {
     TableName: config.dynamodb.table,
     KeyConditionExpression: "PK = :PK AND begins_with(SK, :SK)",

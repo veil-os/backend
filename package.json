@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "dev": "IS_OFFLINE=true sls offline start",
-    "deploy": "sls deploy",
+    "deploy": "sls deploy --stage stg --aws-profile personal",
     "depcheck": "depcheck . --ignores=\"serverless-*\"",
     "sls-config-check": "sls print --account_id PLACEHOLDER",
     "test": "IS_OFFLINE=true jest --testPathPattern=src",
@@ -17,6 +18,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "resolutions": {
+    "websnark": "https://github.com/yehjxraymond/wasmsnark"
+  },
   "dependencies": {
     "@middy/core": "^1.5.0",
     "@middy/http-cors": "^1.5.0",
@@ -28,7 +32,7 @@
     "debug": "^4.1.1",
     "ethers": "^5.0.24",
     "http-errors": "^1.7.3",
-    "libsemaphore": "^1.0.16",
+    "libsemaphore": "1.0.15",
     "middy": "^0.24.0",
     "middy-middleware-json-error-handler": "^1.0.0",
     "runtypes": "^5.0.1",

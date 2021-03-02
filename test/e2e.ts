@@ -11,6 +11,7 @@ import {
   genPublicSignals,
   serialiseIdentity,
   unSerialiseIdentity
+// @ts-ignore
 } from "libsemaphore";
 import { BigNumber, utils } from "ethers";
 import { readFileSync } from "fs";
@@ -18,7 +19,7 @@ import { snarkProofBigInt } from "../src/common/snarkProof";
 import { getLogger } from "../src/common/logger";
 import { config } from "../src/config";
 
-const URL = "http://localhost:3000";
+const URL = "https://api.veilos.io";
 const TEST_ID = uuid();
 const { info, debug, error } = getLogger(`E2E-TEST`);
 

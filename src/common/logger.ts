@@ -1,6 +1,7 @@
 import debug from "debug";
 import { config } from "../config";
 
+if (!process.env.JEST_WORKER_ID) debug.enable("*"); // enable log outputs if not running in jest
 const logger = debug(`${config.appName}`);
 
 interface Logger {

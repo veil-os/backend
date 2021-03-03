@@ -8,6 +8,11 @@ interface OnlyAuthorizedOperatorSessionMiddleware<T, R> extends middy.Middleware
   onError: middy.MiddlewareFunction<T, R>;
 }
 
+const headers = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Credentials": true
+};
+
 export const withBoundary = (): OnlyAuthorizedOperatorSessionMiddleware<any, any> => ({
   after: async handler => {
     const { response } = handler;
@@ -62,7 +67,8 @@ export const withBoundary = (): OnlyAuthorizedOperatorSessionMiddleware<any, any
           body: JSON.stringify({
             requestId,
             message
-          })
+          }),
+          headers
         };
         break;
       case expected && !exposed:
@@ -70,7 +76,8 @@ export const withBoundary = (): OnlyAuthorizedOperatorSessionMiddleware<any, any
           statusCode,
           body: JSON.stringify({
             requestId
-          })
+          }),
+          headers
         };
         break;
       default:
@@ -78,7 +85,8 @@ export const withBoundary = (): OnlyAuthorizedOperatorSessionMiddleware<any, any
           statusCode: 500,
           body: JSON.stringify({
             requestId
-          })
+          }),
+          headers
         };
     }
   }

@@ -39,26 +39,39 @@ const handleCreateClaim = async (event: APIGatewayEvent) => {
   };
   const { identityGroup } = body;
 
-  // Check if identity group exists
-  const savedIdentityGroup = await getIdentityGroupEntry({ identityGroup });
-  if (!savedIdentityGroup) throw new BadRequest(`Identity group ${identityGroup} does not exist`);
+  const checkIdentityGroup = async () => {
+    // Check if identity group exists
+    const savedIdentityGroup = await getIdentityGroupEntry({ identityGroup });
+    if (!savedIdentityGroup) throw new BadRequest(`Identity group ${identityGroup} does not exist`);
+  };
 
-  // Check that identity group's merkle root is same as claim's merkle root
-  const identityCommitments = await listIdentityCommitmentEntries({ identityGroup });
-  const merkleRoot = await getMerkleRoot(identityCommitments);
-  info(`Merkle root of ${identityGroup}: ${merkleRoot}`);
+  const checkMerkleRoot = async () => {
+    // Check that identity group's merkle root is same as claim's merkle root
+    const identityCommitments = await listIdentityCommitmentEntries({ identityGroup });
+    const merkleRoot = await getMerkleRoot(identityCommitments);
+    info(`Merkle root of ${identityGroup}: ${merkleRoot}`);
+    if (merkleRoot !== claim.proof.merkleRoot)
+      throw new Error(`Merkle root is different. Expect ${merkleRoot}, obtained ${claim.proof.merkleRoot}`);
+  };
 
-  // Check that claim with the same nullifier does not exist
-  const claimed = await getClaim({
-    identityGroup,
-    externalNullifier: claim.externalNullifier,
-    nullifier: claim.nullifier
-  });
-  if (claimed) throw new BadRequest(`User may not submit another claim, nullifer exist ${claim.nullifier}`);
+  const checkNullifierDoesNotExist = async () => {
+    // Check that claim with the same nullifier does not exist
+    const claimed = await getClaim({
+      identityGroup,
+      externalNullifier: claim.externalNullifier,
+      nullifier: claim.nullifier
+    });
+    if (claimed) throw new BadRequest(`User may not submit another claim, nullifer exist ${claim.nullifier}`);
+  };
 
-  // Check snark proof
-  const verified = await verifyClaimSignals(claim);
-  if (!verified) throw new BadRequest(`Snark proof is not verified`);
+  const checkSnarkProof = async () => {
+    // Check snark proof
+    const verified = await verifyClaimSignals(claim);
+    if (!verified) throw new BadRequest(`Snark proof is not verified`);
+  };
+
+  const deferredChecks = [checkSnarkProof(), checkNullifierDoesNotExist(), checkMerkleRoot(), checkIdentityGroup()];
+  await Promise.all(deferredChecks);
 
   // Insert claim entry
   const insertedClaim = await insertClaimEntry(claim);

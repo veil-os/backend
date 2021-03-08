@@ -3,6 +3,7 @@ import axios from "axios"; // eslint-disable-line import/no-extraneous-dependenc
 import {
   genIdentityCommitment,
   unSerialiseIdentity
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
 } from "libsemaphore";
 import { getLogger } from "../src/common/logger";
@@ -17,12 +18,13 @@ const runTest = async () => {
   const { identityGroup } = createdIdentityGroupRes.data;
   info(`Created identity group: ${identityGroup}`);
 
-  for (let i = 0; i < identities.length; i++) {
+  for (let i = 0; i < identities.length; i += 1) {
     const serializedId = identities[i];
     info(`Loading identity ${i}`);
     const id = unSerialiseIdentity(serializedId);
     const idc = genIdentityCommitment(id);
     info(`Registering beneficiary identity commitment: ${idc}`);
+    // eslint-disable-next-line no-await-in-loop
     await axios.post(`${URL}/identityCommitment`, {
       identityGroup,
       identityCommitment: idc.toString()

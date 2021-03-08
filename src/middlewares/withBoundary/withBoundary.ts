@@ -19,11 +19,13 @@ export const withBoundary = (): OnlyAuthorizedOperatorSessionMiddleware<any, any
 
     if (response !== undefined) {
       handler.response = {
+        headers,
         statusCode: 200,
         body: JSON.stringify(response)
       };
     } else {
       handler.response = {
+        headers,
         statusCode: 200
       };
     }

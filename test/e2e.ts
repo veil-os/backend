@@ -11,7 +11,8 @@ import {
   genPublicSignals,
   serialiseIdentity,
   unSerialiseIdentity
-// @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // @ts-ignore
 } from "libsemaphore";
 import { BigNumber, utils } from "ethers";
 import { readFileSync } from "fs";

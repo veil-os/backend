@@ -60,6 +60,7 @@ functions:
           method: get
           cors: true
   createClaim:
+    memorySize: 1024
     handler: src/functionHandlers/createClaim/index.handler
     events:
       - http:

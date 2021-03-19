@@ -52,6 +52,13 @@ functions:
           path: /identityCommitment
           method: post
           cors: true
+  getIdentityGroup:
+    handler: src/functionHandlers/getIdentityGroup/index.handler
+    events:
+      - http:
+          path: /identityGroup/{identityGroup}
+          method: get
+          cors: true
   listIdentityCommitmentsByIdentityGroup:
     handler: src/functionHandlers/listIdentityCommitmentsByIdentityGroup/index.handler
     events:

@@ -9,14 +9,16 @@ import {
 import { getLogger } from "../src/common/logger";
 import identities from "./fixtures/identities.json";
 
-const URL = "https://api.veilos.io";
+const URL = "http://localhost:3000";
 const { info, error } = getLogger(`E2E-TEST`);
 
 const runTest = async () => {
   info("Creating new identity group");
   const createdIdentityGroupRes = await axios.post(`${URL}/identityGroup`, { name: `DEMO` });
-  const { identityGroup } = createdIdentityGroupRes.data;
+  const { identityGroup, key } = createdIdentityGroupRes.data;
   info(`Created identity group: ${identityGroup}`);
+  info(`Identity group key: ${key}`);
+  const headers = { "x-api-key": key };
 
   for (let i = 0; i < identities.length; i += 1) {
     const serializedId = identities[i];
@@ -25,14 +27,19 @@ const runTest = async () => {
     const idc = genIdentityCommitment(id);
     info(`Registering beneficiary identity commitment: ${idc}`);
     // eslint-disable-next-line no-await-in-loop
-    await axios.post(`${URL}/identityCommitment`, {
-      identityGroup,
-      identityCommitment: idc.toString()
-    });
+    await axios.post(
+      `${URL}/identityCommitment`,
+      {
+        identityGroup,
+        identityCommitment: idc.toString()
+      },
+      { headers }
+    );
   }
 
   info(`[Summary]`);
   info(`Identity group: ${identityGroup}`);
+  info(`Identity group key: ${key}`);
   info(`Inserted identities: ${identities.length}`);
 };
 

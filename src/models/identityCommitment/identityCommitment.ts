@@ -51,6 +51,27 @@ export const listIdentityCommitmentEntries = async ({ identityGroup }: Pick<Iden
   return Items.map(transformEntryToIdentityCommitment);
 };
 
+export const getIdentityCommitmentEntry = async ({
+  identityGroup,
+  identityCommitment
+}: Pick<IdentityCommitment, "identityGroup" | "identityCommitment">) => {
+  const params: AWS.DynamoDB.DocumentClient.QueryInput = {
+    TableName: config.dynamodb.table,
+    KeyConditionExpression: "PK = :PK AND begins_with(SK, :SK)",
+    ExpressionAttributeValues: {
+      ":PK": `${PK_PREFIX}${identityGroup}`,
+      ":SK": `${SK_PREFIX}${identityCommitment}`
+    }
+  };
+  const { Items } = await query(params);
+  if (!Items[0]) return undefined;
+  const retrievedIdentityCommitment = transformEntryToIdentityCommitment(Items[0]);
+  // To ensure that retrieved commitment is not a substring of another
+  return retrievedIdentityCommitment.identityCommitment === identityCommitment
+    ? retrievedIdentityCommitment
+    : undefined;
+};
+
 export const deleteIdentityCommitmentEntry = async (idc: IdentityCommitment) => {
   const param = {
     TableName: config.dynamodb.table,

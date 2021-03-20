@@ -1,25 +1,26 @@
-import { APIGatewayEvent } from "aws-lambda";
 import { Record, String } from "runtypes";
-import { publicRequestHandler } from "../../middlewares/handlers";
-import { getIdentityGroupEntry } from "../../models/identityGroup";
-import { insertIdentityCommitmentEntry } from "../../models/identityCommitment";
+import { BadRequest } from "http-errors";
+import { onlyIdentityGroupManagerHandler, APIGatewayEventWithIdentityGroupContext } from "../../middlewares/handlers";
+import { insertIdentityCommitmentEntry, getIdentityCommitmentEntry } from "../../models/identityCommitment";
 
 const RequestRT = Record({
   identityGroup: String,
   identityCommitment: String
 });
 
-const handleCreateIdentityCommitment = async (event: APIGatewayEvent) => {
-  if (!event.body) throw new Error("No body");
-  const { identityGroup, identityCommitment } = RequestRT.check(JSON.parse(event.body));
+const handleCreateIdentityCommitment = async (event: APIGatewayEventWithIdentityGroupContext) => {
+  if (!event.body) throw new BadRequest("No body");
+  if (!event.applicationContext) throw new Error("Not using onlyIdentityGroupManagerHandler");
+  const { identityGroup } = event.applicationContext.identityGroup;
+  const { identityCommitment } = RequestRT.check(JSON.parse(event.body));
 
-  // Check if identity group exists
-  const savedIdentityGroup = await getIdentityGroupEntry({ identityGroup });
-  if (!savedIdentityGroup) throw new Error(`Identity group ${identityGroup} does not exist`);
+  // Check that identity commitment has not already been inserted
+  const existingIdentityCommitment = await getIdentityCommitmentEntry({ identityGroup, identityCommitment });
+  if (existingIdentityCommitment) throw new BadRequest("Identity commitment already in identity group");
 
   // Insert new record
   const inserted = await insertIdentityCommitmentEntry({ identityGroup, identityCommitment });
   return inserted;
 };
 
-export const handler = publicRequestHandler(handleCreateIdentityCommitment);
+export const handler = onlyIdentityGroupManagerHandler(handleCreateIdentityCommitment);

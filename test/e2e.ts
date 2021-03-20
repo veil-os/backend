@@ -58,8 +58,11 @@ const runTest = async () => {
   info("[Admin] Creating new identity group");
   const createdIdentityGroupRes = await axios.post(`${URL}/identityGroup`, { name: `TESTING-GROUP-${TEST_ID}` });
   debug(createdIdentityGroupRes.data);
-  const { identityGroup } = createdIdentityGroupRes.data;
+  const { identityGroup, key } = createdIdentityGroupRes.data;
   info(`[Admin] Identity group created: ${identityGroup}`);
+  info(`[Admin] Identity group key: ${key}`);
+
+  const headers = { "x-api-key": key };
 
   info("[Public] Listing identity group");
   const identityGroupListRes = await axios.get(`${URL}/identityGroup`);
@@ -90,24 +93,36 @@ const runTest = async () => {
   info(`[Beneficiary 3] Identity commitment: ${idc3}`);
 
   info("[Admin] Registering beneficiary 1 identity commitment");
-  const registration1Res = await axios.post(`${URL}/identityCommitment`, {
-    identityGroup,
-    identityCommitment: idc1.toString()
-  });
+  const registration1Res = await axios.post(
+    `${URL}/identityCommitment`,
+    {
+      identityGroup,
+      identityCommitment: idc1.toString()
+    },
+    { headers }
+  );
   debug(registration1Res.data);
 
   info("[Admin] Registering beneficiary 2 identity commitment");
-  const registration2Res = await axios.post(`${URL}/identityCommitment`, {
-    identityGroup,
-    identityCommitment: idc2.toString()
-  });
+  const registration2Res = await axios.post(
+    `${URL}/identityCommitment`,
+    {
+      identityGroup,
+      identityCommitment: idc2.toString()
+    },
+    { headers }
+  );
   debug(registration2Res.data);
 
   info("[Admin] Registering beneficiary 3 identity commitment");
-  const registration3Res = await axios.post(`${URL}/identityCommitment`, {
-    identityGroup,
-    identityCommitment: idc3.toString()
-  });
+  const registration3Res = await axios.post(
+    `${URL}/identityCommitment`,
+    {
+      identityGroup,
+      identityCommitment: idc3.toString()
+    },
+    { headers }
+  );
   debug(registration3Res.data);
 
   const externalNullifierStr = `FOOD_COLLECTION-${format(new Date(), "yyyyMMdd")}`;
@@ -161,6 +176,7 @@ const runTest = async () => {
   info(`Message: ${claimData.message}`);
 
   info(`[Private Info]`);
+  info(`Identity group manager key: ${key}`);
   info(`Beneficiary 1 Private Key: ${id1.keypair.privKey.toString("hex")}`);
   info(`Beneficiary 1 Public Key: ${id1.keypair.pubKey[0].toString()}${id1.keypair.pubKey[1].toString()}`);
   info(`Beneficiary 1 Identity Nullifier: ${id1.identityNullifier.toString()}`);

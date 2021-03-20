@@ -5,9 +5,13 @@ export interface SnarkProof {
   pi_b: SnarkBigInt[][];
   pi_c: SnarkBigInt[];
 }
-export interface IdentityGroup {
+
+export interface IdentityGroupSanitized {
   identityGroup: string;
   name: string;
+}
+export interface IdentityGroup extends IdentityGroupSanitized {
+  key: string;
 }
 
 export interface IdentityCommitment {

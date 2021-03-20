@@ -15,7 +15,8 @@ const handleCreateIdentityGroup = async (event: APIGatewayEvent) => {
   if (!event.body) throw new Error("No body");
   const { name } = RequestRT.check(JSON.parse(event.body));
   const id = uuid();
-  const identityGroup = { identityGroup: id, name };
+  const key = uuid();
+  const identityGroup = { identityGroup: id, name, key };
   info(`Inserting ${JSON.stringify(identityGroup)}`);
   const inserted = await insertIdentityGroupEntry(identityGroup);
   return inserted;

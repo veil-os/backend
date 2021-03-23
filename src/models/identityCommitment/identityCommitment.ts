@@ -1,5 +1,5 @@
 import { String, Record } from "runtypes";
-import { put, query, deleteItem } from "../../services/dynamoDb";
+import { get, put, query, deleteItem } from "../../services/dynamoDb";
 import { IdentityCommitment, DbEntry } from "../../types";
 import { config } from "../../config";
 
@@ -55,21 +55,15 @@ export const getIdentityCommitmentEntry = async ({
   identityGroup,
   identityCommitment
 }: Pick<IdentityCommitment, "identityGroup" | "identityCommitment">) => {
-  const params: AWS.DynamoDB.DocumentClient.QueryInput = {
+  const param: AWS.DynamoDB.DocumentClient.GetItemInput = {
     TableName: config.dynamodb.table,
-    KeyConditionExpression: "PK = :PK AND begins_with(SK, :SK)",
-    ExpressionAttributeValues: {
-      ":PK": `${PK_PREFIX}${identityGroup}`,
-      ":SK": `${SK_PREFIX}${identityCommitment}`
+    Key: {
+      PK: `${PK_PREFIX}${identityGroup}`,
+      SK: `${SK_PREFIX}${identityCommitment}`
     }
   };
-  const { Items } = await query(params);
-  if (!Items[0]) return undefined;
-  const retrievedIdentityCommitment = transformEntryToIdentityCommitment(Items[0]);
-  // To ensure that retrieved commitment is not a substring of another
-  return retrievedIdentityCommitment.identityCommitment === identityCommitment
-    ? retrievedIdentityCommitment
-    : undefined;
+  const { Item } = await get(param);
+  return Item ? transformEntryToIdentityCommitment(Item as any) : undefined;
 };
 
 export const deleteIdentityCommitmentEntry = async (idc: IdentityCommitment) => {

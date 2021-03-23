@@ -52,6 +52,13 @@ functions:
           path: /identityCommitment
           method: post
           cors: true
+  deleteIdentityCommitment:
+    handler: src/functionHandlers/deleteIdentityCommitment/index.handler
+    events:
+      - http:
+          path: /identityCommitment
+          method: delete
+          cors: true
   getIdentityGroup:
     handler: src/functionHandlers/getIdentityGroup/index.handler
     events:

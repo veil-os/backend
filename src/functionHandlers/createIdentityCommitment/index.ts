@@ -19,6 +19,7 @@ const handleCreateIdentityCommitment = async (event: APIGatewayEventWithIdentity
   if (existingIdentityCommitment) throw new BadRequest("Identity commitment already in identity group");
 
   // Insert new record
+  // TODO validate the identity commitment entry (length and number)
   const inserted = await insertIdentityCommitmentEntry({ identityGroup, identityCommitment });
   return inserted;
 };

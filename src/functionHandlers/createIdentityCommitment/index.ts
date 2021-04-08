@@ -1,6 +1,9 @@
 import { Record, String } from "runtypes";
 import { BadRequest } from "http-errors";
-import { onlyIdentityGroupManagerHandler, APIGatewayEventWithIdentityGroupContext } from "../../middlewares/handlers";
+import {
+  onlyIdentityGroupManagerFromBodyHandler,
+  APIGatewayEventWithIdentityGroupContext
+} from "../../middlewares/handlers";
 import { insertIdentityCommitmentEntry, getIdentityCommitmentEntry } from "../../models/identityCommitment";
 
 const RequestRT = Record({
@@ -10,7 +13,7 @@ const RequestRT = Record({
 
 const handleCreateIdentityCommitment = async (event: APIGatewayEventWithIdentityGroupContext) => {
   if (!event.body) throw new BadRequest("No body");
-  if (!event.applicationContext) throw new Error("Not using onlyIdentityGroupManagerHandler");
+  if (!event.applicationContext) throw new Error("Not using onlyIdentityGroupManagerFromBodyHandler");
   const { identityGroup } = event.applicationContext.identityGroup;
   const { identityCommitment } = RequestRT.check(JSON.parse(event.body));
 
@@ -24,4 +27,4 @@ const handleCreateIdentityCommitment = async (event: APIGatewayEventWithIdentity
   return inserted;
 };
 
-export const handler = onlyIdentityGroupManagerHandler(handleCreateIdentityCommitment);
+export const handler = onlyIdentityGroupManagerFromBodyHandler(handleCreateIdentityCommitment);

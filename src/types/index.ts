@@ -38,3 +38,13 @@ export interface DbEntry {
   SK: string;
   data?: any;
 }
+
+export interface Invitation {
+  identityGroup: string;
+  code: string;
+  created: number;
+  email: string;
+  name: string;
+  consumed: boolean;
+  // TODO settings to allow change name
+}

@@ -1,6 +1,9 @@
 import { Record, String } from "runtypes";
 import { BadRequest } from "http-errors";
-import { onlyIdentityGroupManagerHandler, APIGatewayEventWithIdentityGroupContext } from "../../middlewares/handlers";
+import {
+  onlyIdentityGroupManagerFromBodyHandler,
+  APIGatewayEventWithIdentityGroupContext
+} from "../../middlewares/handlers";
 import { deleteIdentityCommitmentEntry } from "../../models/identityCommitment";
 
 const RequestRT = Record({
@@ -10,7 +13,7 @@ const RequestRT = Record({
 
 const handleDeleteIdentityCommitment = async (event: APIGatewayEventWithIdentityGroupContext) => {
   if (!event.body) throw new BadRequest("No body");
-  if (!event.applicationContext) throw new Error("Not using onlyIdentityGroupManagerHandler");
+  if (!event.applicationContext) throw new Error("Not using onlyIdentityGroupManagerFromBodyHandler");
   const { identityGroup } = event.applicationContext.identityGroup;
   const { identityCommitment } = RequestRT.check(JSON.parse(event.body));
 
@@ -19,4 +22,4 @@ const handleDeleteIdentityCommitment = async (event: APIGatewayEventWithIdentity
   return { success: true };
 };
 
-export const handler = onlyIdentityGroupManagerHandler(handleDeleteIdentityCommitment);
+export const handler = onlyIdentityGroupManagerFromBodyHandler(handleDeleteIdentityCommitment);

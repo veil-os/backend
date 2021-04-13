@@ -1,7 +1,10 @@
 import { Record, String, Array } from "runtypes";
 import { BadRequest } from "http-errors";
 import { v4 as uuid } from "uuid";
-import { onlyIdentityGroupManagerFromBodyHandler, APIGatewayEventWithIdentityGroupContext } from "../../middlewares/handlers";
+import {
+  onlyIdentityGroupManagerFromBodyHandler,
+  APIGatewayEventWithIdentityGroupContext
+} from "../../middlewares/handlers";
 import { putMultipleInvitationEntries } from "../../models/invitation";
 import { Invitation } from "../../types";
 
@@ -29,7 +32,7 @@ const handleCreateInvitations = async (event: APIGatewayEventWithIdentityGroupCo
     name,
     email,
     created,
-    consumed: false
+    state: "UNCONSUMED"
   }));
 
   // Insert invitations to db

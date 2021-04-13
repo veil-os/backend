@@ -39,12 +39,19 @@ export interface DbEntry {
   data?: any;
 }
 
-export interface Invitation {
+export interface BaseInvitation {
   identityGroup: string;
   code: string;
   created: number;
   email: string;
   name: string;
-  consumed: boolean;
-  // TODO settings to allow change name
 }
+export interface UnconsumedInvitation extends BaseInvitation {
+  state: "UNCONSUMED";
+}
+export interface ConsumedInvitation extends BaseInvitation {
+  state: "CONSUMED";
+  consumedBy: string;
+}
+
+export type Invitation = ConsumedInvitation | UnconsumedInvitation;

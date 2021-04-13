@@ -1,4 +1,4 @@
-import { String, Record, Number, Boolean } from "runtypes";
+import { String, Record, Number, Literal, Union } from "runtypes";
 import { DynamoDB } from "aws-sdk";
 import { put, get, query, putItems } from "../../services/dynamoDb";
 import { IdentityGroup, DbEntry, Invitation } from "../../types";
@@ -10,31 +10,39 @@ const SK_PREFIX = `#INVITATION#`;
 export const InvitationEntryRT = Record({
   PK: String.withConstraint(s => s.startsWith(PK_PREFIX)),
   SK: String.withConstraint(s => s.startsWith(SK_PREFIX)),
-  data: Record({
-    name: String,
-    email: String,
-    created: Number,
-    consumed: Boolean
-  })
+  data: Union(
+    Record({
+      name: String,
+      email: String,
+      created: Number,
+      state: Literal("CONSUMED"),
+      consumedBy: String
+    }),
+    Record({
+      name: String,
+      email: String,
+      created: Number,
+      state: Literal("UNCONSUMED")
+    })
+  )
 });
 
 export const transformEntryToInvitation = (raw: DbEntry): Invitation => {
   const entry = InvitationEntryRT.check(raw);
+
   return {
     identityGroup: entry.PK.substring(PK_PREFIX.length),
     code: entry.SK.substring(SK_PREFIX.length),
-    created: entry.data.created,
-    name: entry.data.name,
-    email: entry.data.email,
-    consumed: entry.data.consumed
+    ...entry.data
   };
 };
 
-export const transformInvitationToEntry = ({ identityGroup, code, created, email, consumed, name }: Invitation) => {
+export const transformInvitationToEntry = (invitation: Invitation) => {
+  const { identityGroup, code, ...rest } = invitation;
   return {
     PK: `${PK_PREFIX}${identityGroup}`,
     SK: `${SK_PREFIX}${code}`,
-    data: { created, name, email, consumed }
+    data: rest
   };
 };
 

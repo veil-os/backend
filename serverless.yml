@@ -54,6 +54,13 @@ functions:
           path: /identityCommitment
           method: post
           cors: true
+  createIdentityCommitmentWithInvitation:
+    handler: src/functionHandlers/createIdentityCommitmentWithInvitation/index.handler
+    events:
+      - http:
+          path: /identityGroup/{identityGroup}/identityCommitment
+          method: post
+          cors: true
   createInvitations:
     handler: src/functionHandlers/createInvitations/index.handler
     events:
